@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8" />
-  <title>مدیریت تسک - نسخه پیشرفته</title>
+  <title>مدیریت تسک‌ها</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <style>
     body {
@@ -18,49 +18,30 @@
       margin-bottom: 20px;
     }
 
-    .search-container {
-      display: flex;
-      justify-content: flex-start;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    input[type="text"] {
-      padding: 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      width: 250px;
-    }
-
+    .search-container,
     .filter-container {
       display: flex;
-      justify-content: flex-start;
-      gap: 20px;
-      margin-bottom: 30px;
       flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
     }
 
-    .filter-container select {
+    input[type="text"],
+    select,
+    textarea {
       padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
-      font-size: 16px;
+      width: 100%;
+      max-width: 250px;
     }
 
     form {
       display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 30px;
       flex-wrap: wrap;
-    }
-
-    input, select, textarea {
-      padding: 10px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      width: 250px;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 30px;
     }
 
     textarea {
@@ -84,9 +65,9 @@
 
     .columns {
       display: flex;
+      flex-direction: row;
       justify-content: space-between;
       gap: 20px;
-      margin-top: 30px;
       flex-wrap: wrap;
     }
 
@@ -97,7 +78,7 @@
       min-width: 300px;
       flex: 1;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      height: 400px;
+      height: 350px;
       overflow-y: auto;
     }
 
@@ -106,7 +87,7 @@
       display: flex;
       align-items: center;
       gap: 15px;
-      padding: 15px;
+      padding: 10px;
       margin-bottom: 10px;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.05);
@@ -115,8 +96,8 @@
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .task-info {
@@ -134,14 +115,14 @@
 
     .controls {
       display: flex;
-      gap: 8px;
       flex-direction: column;
+      gap: 4px;
     }
 
     .empty-message {
       text-align: center;
       color: #9ca3af;
-      font-size: 18px;
+      font-size: 16px;
       margin-top: 20px;
     }
 
@@ -164,11 +145,6 @@
       z-index: 1000;
     }
 
-    #editModal textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
     @media (max-width: 768px) {
       .columns {
         flex-direction: column;
@@ -181,12 +157,12 @@
   <h1>مدیریت تسک‌ها</h1>
 
   <div class="search-container">
-    <label for="search" style="font-size: 18px; color: #4b5563;">جستجو:</label>
+    <label for="search">جستجو:</label>
     <input type="text" id="search" placeholder="جستجو در تسک‌ها" />
   </div>
 
   <div class="filter-container">
-    <label for="priorityFilter" style="font-size: 18px; color: #4b5563;">فیلتر بر اساس اولویت:</label>
+    <label for="priorityFilter">فیلتر اولویت:</label>
     <select id="priorityFilter">
       <option value="">همه</option>
       <option value="High">High</option>
@@ -198,7 +174,7 @@
   <div class="counter" id="counter"></div>
 
   <form id="taskForm">
-    <input type="text" name="name" placeholder="نام کامل تسک یا شخص" required />
+    <input type="text" name="name" placeholder="نام تسک" required />
     <select name="status" required>
       <option value="To Do">To Do</option>
       <option value="In Progress">In Progress</option>
@@ -209,8 +185,8 @@
       <option value="Medium">Medium</option>
       <option value="Low">Low</option>
     </select>
-    <textarea name="description" placeholder="توضیحات تسک" required></textarea>
-    <button type="submit">➕ افزودن</button>
+    <textarea name="description" placeholder="توضیحات" required></textarea>
+    <button type="submit">افزودن</button>
   </form>
 
   <div class="columns">
@@ -228,10 +204,11 @@
     </div>
   </div>
 
+  <!-- Modal -->
   <div id="editModal">
     <h2>ویرایش تسک</h2>
     <form id="editForm">
-      <input type="text" id="editName" placeholder="نام تسک" required />
+      <input type="text" id="editName" required />
       <select id="editStatus" required>
         <option value="To Do">To Do</option>
         <option value="In Progress">In Progress</option>
@@ -242,8 +219,8 @@
         <option value="Medium">Medium</option>
         <option value="Low">Low</option>
       </select>
-      <textarea id="editDescription" placeholder="توضیحات تسک" required></textarea>
-      <button type="submit">ذخیره تغییرات</button>
+      <textarea id="editDescription" required></textarea>
+      <button type="submit">ذخیره</button>
       <button type="button" onclick="closeEditModal()">بستن</button>
     </form>
   </div>
